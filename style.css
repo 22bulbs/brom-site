@@ -1,0 +1,32 @@
+body {
+  background-color: #3D3C42;
+}
+
+h1 {
+  font-family: 'Fondamento', cursive;
+  color: #649CFF;
+}
+
+h4 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  color: #649CFF;
+}
+
+main {
+  padding: 20px;
+}
+
+p {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  color: #D4CFED;
+}
+
+.row {
+  margin: 20px 0px 20px 0px;
+}
+
+/*img {
+  box-shadow: 1px 1px 2px 1px #888;
+}*/
