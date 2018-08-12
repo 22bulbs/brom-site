@@ -2,19 +2,20 @@ body {
   background-color: #3D3C42;
 }
 
-h1 {
+.title {
   font-family: 'Fondamento', cursive;
-  color: #649CFF;
+  color: #649CFF!important;
+  font-size: 34!important;
 }
 
 h4 {
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
-  color: #649CFF;
+  color: #FFF4E5;
 }
 
 main {
-  padding: 20px;
+  padding: 70px 20px 20px 20px;
 }
 
 p {
@@ -27,6 +28,24 @@ p {
   margin: 20px 0px 20px 0px;
 }
 
+.anchor {
+  border-top: 50px solid transparent;
+  margin-top: -50px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+
 /*img {
   box-shadow: 1px 1px 2px 1px #888;
 }*/
+
+.bg-light {
+  background-color: #2B2A30!important;
+}
+
+a {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  color: #D4CFED!important;
+}
