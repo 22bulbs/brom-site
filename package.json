@@ -1,0 +1,22 @@
+{
+  "name": "brom-site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "prism.js",
+  "scripts": {
+    "test": "exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nathanielgrossman/brom-site.git"
+  },
+  "keywords": [
+    "'"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nathanielgrossman/brom-site/issues"
+  },
+  "homepage": "https://github.com/nathanielgrossman/brom-site#readme"
+}
