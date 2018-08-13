@@ -5,7 +5,7 @@ body {
 .title {
   font-family: 'Fondamento', cursive;
   color: #649CFF!important;
-  font-size: 34!important;
+  font-size: 22pt!important;
 }
 
 h4 {
@@ -14,8 +14,14 @@ h4 {
   color: #FFF4E5;
 }
 
+h6 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  color: #FFF4E5;
+}
+
 main {
-  padding: 70px 20px 20px 20px;
+  padding: 50px 20px 20px 20px;
 }
 
 p {
@@ -25,7 +31,7 @@ p {
 }
 
 .row {
-  margin: 20px 0px 20px 0px;
+  margin: 40px 0px 40px 0px;
 }
 
 .anchor {
@@ -48,4 +54,12 @@ a {
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
   color: #D4CFED!important;
+}
+
+.navbar {
+  padding: 0em 1em 0em 1em;
+}
+
+.navbar-toggler {
+  border-width: 0px!important;
 }
