@@ -11,3 +11,5 @@ deploy:
   region: us-west-1
 notifications:
   slack: $SLACK
+  on_success: always
+  on_failure: always 
