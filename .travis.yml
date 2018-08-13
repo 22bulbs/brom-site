@@ -5,7 +5,7 @@ deploy:
   provider: s3
   access_key_id: AKIAIEA25JB2OB2U6XSQ
   secret_access_key:
-    secure: "$SECRETKEY"
+    secure: $SECRETACCESSKEY
   bucket: www.brom.horse
   acl: public_read
   region: us-west-1
