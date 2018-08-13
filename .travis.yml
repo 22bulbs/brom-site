@@ -9,7 +9,5 @@ deploy:
   bucket: www.brom.horse
   acl: public_read
   region: us-west-1
- notifications:
-    slack: bulbasaur-cs-22:$SLACK
-    on_success: always
-    on_success: always
+notifications:
+  slack: $SLACK
