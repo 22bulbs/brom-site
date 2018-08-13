@@ -12,4 +12,4 @@ deploy:
  notifications:
     slack: bulbasaur-cs-22:$SLACK
       on_success: always
-      on_success: always
+      on_failure: always
