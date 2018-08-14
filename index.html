@@ -86,7 +86,7 @@
     <div class="row py-3 anchor" id="rules">
       <div class="col-md-9 col-12 mx-auto">
         <h4 class="text-center">Rules</h4>
-        <p>While brom comes with smart defaults for assessing header practices, the security needs of your application are unique. brom provides a rule syntax to allow you to create your own rules. In addition to adding your own rules, you can also choose to ignore specific rules by listing their IDs in the configuration file.</p>
+        <p>Rules are the core of brom's auditing functionality. They are simple tests that are run against every HTTP transaction.</p>
         <p>Here's a built-in rule:</p>
         <pre>
 <code class="language-javascript">{
@@ -102,7 +102,26 @@
   pass: {
     flags: []
   }
+}</code>
+</pre>
+        <p>While brom comes with smart defaults for assessing header practices, the security needs of your application are unique. brom provides a rule syntax to allow you to create your own rules. Simply create a folder in the root of your project called brom.rules.js, that contains an array of objects with the above format. In addition to adding your own rules, you can also choose to ignore specific rules by listing their IDs in the configuration file.</p>
+      </div>
+    </div>
+    <div class="row py-3 anchor" id="ci">
+      <div class="col-md-9 col-12 mx-auto">
+        <h4 class="text-center">Continuous Integration</h4>
+        <p>brom offers a stricter version of it's automated mode for use in CI workflows. When called with a <code class="language-bash">--ci</code> flag, brom will run automated analysis on the specified server. </p>
+        <pre>
+<code class="language-bash">brom server/index.js --ci</code></pre>
+        <p>By default, it will not stop your build. To set conditions for stopping the build, you'll need to create a <code class="language-json">"halt-on"</code> property on the configuration, with it's value set to an array with the IDs of all rules you want to allow to stop the build.</p>
+        <pre>
+<code class="language-json">{
+  "halt-on": [
+    "include-csp",
+    "include-x-xss-protection"
+  ]
 }</code></pre>
+        <p>When brom finishes the audit, any routes that triggered a warning from a rule included in the configuration will be listed in the console, and the build will fail.</p>
       </div>
     </div>
   </main>
