@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-dark navbar-expand-md bg-light justify-content-center fixed-top">
+  <nav class="navbar navbar-dark navbar-expand-lg bg-light justify-content-center fixed-top">
     <a href="#" class=" navbar-brand d-flex w-50 mr-auto title">brom</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
       <span><i class="fas fa-angle-down"></i></span>
@@ -32,6 +32,12 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#configuration">Configuration</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#https">HTTPS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#api">API</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#faq">FAQ</a>
@@ -122,6 +128,65 @@
   ]
 }</code></pre>
         <p>When brom finishes the audit, any routes that triggered a warning from a rule included in the configuration will be listed in the console, and the build will fail.</p>
+      </div>
+    </div>
+    <div class="row py-3 anchor" id="configuration">
+      <div class="col-md-9 col-12 mx-auto">
+        <h4 class="text-center">Configuration</h4>
+        <p>While most of brom's features can be triggered with flags, you can simplify the process by providing a brom.config.json file in your project's directory. brom needs, at the minimum, to know what local port to proxy to, and with many settings it also needs a path to your server. If you'd rather just type brom, provide the following properties in the config file.</p>
+        <pre>
+<code class="language-json">{
+  "server": "demo/server.js",
+  "port": 3000
+}</code></pre>
+        <p>All flags can be preconfigured here as well. In a <code class="language-json">"defaults"</code> key provide settings matching the longform of any flag. These settings will always be overridden by flags and arguments passed directly to the CLI.</p>
+        <pre>
+<code class="language-json">{
+  "server": "demo/server.js",
+  "port": 3000,
+  "defaults": {
+    "automated": true,
+    "https": true,
+    "preserve-caching": true,
+    "write-dir": "brom-history"
+  }
+}</code></pre>
+        <p>brom uses two lightweight servers to operate (a proxy for inspecting transactions, and a server for aggregating results from multiple sources). These operate on ports 9999 and 7913 respectively, but you can move them where you like.</p>
+        <pre>
+<code class="language-json">{
+  "proxy-port": 3001,
+  "results-port": 3002
+}</code></pre>
+        <p>Some rules may not be relevant to your application. To turn these off, create an <code class="language-json">"ignore-rules"</code> key in your configuration and list the IDs of the rules you'd like to turn off.</p>
+        <pre>
+<code class="language-json">{
+  "ignore-rules": [
+    "no-x-powered-by"
+  ]
+}</code></pre>
+      </div>
+    </div>
+    <div class="row py-3 anchor" id="https">
+      <div class="col-md-9 col-12 mx-auto">
+        <h4 class="text-center">HTTPS</h4>
+        <p>brom proxies your application, so if your server runs in HTTPS, brom will need to as well. Because all three servers run off your localhost, a single SSL key and certificate pair is all that's necessary to enable this. Your key and certificate can stay in their usual position, but you'll need to tell brom where to find them. To point brom to your .key and .crt file, add a <code class="language-json">"https"</code> property to the configuration file, with paths to the key and certificate. Then, all it takes to run in HTTPS mode is to call brom with a <code class="language-bash">--https</code> flag.</p>
+        <pre>
+<code class="language-json">{  
+  "https": {
+    "key": "../application/server.key",
+    "cert":"../application/server.crt"
+  }
+}</code></pre>
+      </div>
+    </div>
+    <div class="row py-3 anchor" id="api">
+      <div class="col-md-9 col-12 mx-auto">
+        <h4 class="text-center">API</h4>
+        <p>text about api mode</p>
+        <pre>
+<code class="language-javascript">{  
+  foo: "bar"
+}</code></pre>
       </div>
     </div>
   </main>
