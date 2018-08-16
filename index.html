@@ -31,6 +31,9 @@
           <a class="nav-link" href="#ci">CI</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="#logging">Logging</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="#configuration">Configuration</a>
         </li>
         <li class="nav-item">
@@ -38,9 +41,6 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#api">API</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#faq">FAQ</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="https://www.npmjs.com/package/brom"><i class="fab fa-npm"></i></a>
@@ -60,7 +60,7 @@
     </div>
     <div class="row">
       <div class="col-md-9 col-12 mx-auto">
-        <p class="text-left">
+        <p class="text-justify">
           brom is a configurable CLI for recording HTTP transactions and improving security practices, designed for use in local environments and CI tools. Get your headers in order <em>before</em> deployment.
         </p>
       </div>
@@ -79,13 +79,13 @@
     </div>
     <div class="row">
       <div class="col-md-9 col-12 mx-auto">
-        <h6 class="text-left">Interactive Auditing</h6>
+        <h6 class="text-justify">Interactive Auditing</h6>
         <p>brom proxies your server, recording HTTP transactions as they stream through, and injecting a script into HTML documents to record third-party AJAX calls (on by default).</p>
       </div>
     </div>
     <div class="row">
       <div class="col-md-9 col-12 mx-auto">
-        <h6 class="text-left">Automated Auditing</h6>
+        <h6 class="text-justify">Automated Auditing</h6>
         <p>When called with an <code class="language-bash">--automated</code> flag, brom traverses Express application structures to identify all registered routes and their supported methods, sending dumb requests to each one. Great for check-ins and (with a bit of configuration) build processes.</p>
       </div>
     </div>
@@ -128,6 +128,19 @@
   ]
 }</code></pre>
         <p>When brom finishes the audit, any routes that triggered a warning from a rule included in the configuration will be listed in the console, and the build will fail.</p>
+      </div>
+    </div>
+    <div class="row py-3 anchor" id="logging">
+      <div class="col-md-9 col-12 mx-auto">
+        <h4 class="text-center">Logging</h4>
+        <p>If you'd like to keep records of your auditing sessions with, brom can save audit results as JSON logs4 in a directory of your choice. To configure this, either call brom with the <code class="language-bash">--write-dir=[YOUR DIRECTORY]</code> flag or add the following entry to your configuration file.</p>
+        <pre>
+<code class="language-json">{
+  "defaults": {
+    "write-dir": "[PATH TO DIRECTORY]"
+  }
+}</code></pre>
+        <p>You can revisit your brom logs by calling it with the <code class="language-bash">--read-file=[FILE PATH]</code> flag. This will open the client and allow you to view all of the data that was saved from that session.</p>
       </div>
     </div>
     <div class="row py-3 anchor" id="configuration">
@@ -182,11 +195,58 @@
     <div class="row py-3 anchor" id="api">
       <div class="col-md-9 col-12 mx-auto">
         <h4 class="text-center">API</h4>
-        <p>text about api mode</p>
+        <p>While brom is primarily designed as an auditing tool, it can also integrate into your application as an API. brom contains a series of header parsers written to spec, and you can access them by requiring brom into your code.</p>
         <pre>
-<code class="language-javascript">{  
-  foo: "bar"
-}</code></pre>
+<code class="language-javascript">const parse = require('brom');
+
+parse({
+  'Content-Security-Policy': "default-src 'self'; img-src *; media-src media1.com media2.com; script-src userscripts.example.com",
+  'Feature-Policy': "vibrate 'none'; geolocation 'none'",
+  'Cookie': 'hello=world; foo=bar;',
+  'Set-Cookie': 'a=b; Path=/; HttpOnly;',
+  'Content-Type': 'text/html; charset=utf-8',
+  'Content-Length': '7913'
+});
+
+// {
+//   contentSecurityPolicy: {
+//     'default-src': ['\'self\''],
+//     'img-src': ['*'],
+//     'media-src': ['media1.com', 'media2.com'],
+//     'script-src': ['userscripts.example.com']
+//   },
+//   cookies: [
+//     { name: 'hello', value: 'world' },
+//     { name: 'foo', value: 'bar' }
+//   ],
+//   featurePolicy: {
+//     vibrate: ['\'none\''],
+//     geolocation: ['\'none\'']
+//   },
+//   setCookie: [
+//     {
+//       name: 'a',
+//       value: 'b',
+//       Path: '/',
+//       'Max-Age': '0',
+//       Secure: true,
+//       HttpOnly: true
+//     }
+//   ],
+//   headers: {
+//     'Content-Type': 'text/html; charset=utf-8',
+//     'Content-Length': '7913'
+//   }
+// }</code></pre>
+      <p>When called on it's own, it will parse an entire header set, but you can parse individual headers by adding a method to the function call.</p>
+              <pre>
+<code class="language-javascript">brom.csp("default-src 'self'; img-src *; script-src userscripts.example.com");
+
+// {
+//   'default-src': ['\'self\''],
+//   'img-src': ['*'],
+//   'script-src': ['userscripts.example.com']
+// }</code></pre>
       </div>
     </div>
   </main>
