@@ -54,7 +54,7 @@
   <main class="container-fluid anchor">
     <div class="row">
       <div class="col-md-9 col-12 mx-auto">
-        <h4 class="text-center">Highly configurable auditing of HTTP transactions</h4>
+        <h1 class="text-center" id="headline">Highly configurable auditing of HTTP transactions</h1>
         <img class="img-fluid" src="Frame.png">
       </div>
     </div>
@@ -110,16 +110,16 @@
   }
 }</code>
 </pre>
-        <p>While brom comes with smart defaults for assessing header practices, the security needs of your application are unique. brom provides a rule syntax to allow you to create your own rules. Simply create a folder in the root of your project called brom.rules.js, that contains an array of objects with the above format. In addition to adding your own rules, you can also choose to ignore specific rules by listing their IDs in the configuration file.</p>
+        <p>While brom comes with smart defaults for assessing header practices, the security needs of your application are unique. brom provides a rule syntax to allow you to create your own rules. Simply create a folder in the root of your project called brom.rules.js that contains an array of objects with the above format. In addition to adding your own rules, you can also choose to ignore specific rules by listing their IDs in the configuration file.</p>
       </div>
     </div>
     <div class="row py-3 anchor" id="ci">
       <div class="col-md-9 col-12 mx-auto">
         <h4 class="text-center">Continuous Integration</h4>
-        <p>brom offers a stricter version of it's automated mode for use in CI workflows. When called with a <code class="language-bash">--ci</code> flag, brom will run automated analysis on the specified server. </p>
+        <p>brom offers a stricter version of its automated mode for use in CI workflows. When called with a <code class="language-bash">--ci</code> flag, brom will run automated analysis on the specified server. </p>
         <pre>
 <code class="language-bash">brom server/index.js --ci</code></pre>
-        <p>By default, it will not stop your build. To set conditions for stopping the build, you'll need to create a <code class="language-json">"halt-on"</code> property on the configuration, with it's value set to an array with the IDs of all rules you want to allow to stop the build.</p>
+        <p>By default, it will not stop your build. To set conditions for stopping the build, you'll need to create a <code class="language-json">"halt-on"</code> property on the configuration, with its value set to an array with the IDs of all rules you want to allow to stop the build.</p>
         <pre>
 <code class="language-json">{
   "halt-on": [
@@ -133,7 +133,7 @@
     <div class="row py-3 anchor" id="logging">
       <div class="col-md-9 col-12 mx-auto">
         <h4 class="text-center">Logging</h4>
-        <p>If you'd like to keep records of your auditing sessions with, brom can save audit results as JSON logs4 in a directory of your choice. To configure this, either call brom with the <code class="language-bash">--write-dir=[YOUR DIRECTORY]</code> flag or add the following entry to your configuration file.</p>
+        <p>If you'd like to keep records of your auditing sessions with, brom can save audit results as JSON logs in a directory of your choice. To configure this, either call brom with the <code class="language-bash">--write-dir=[YOUR DIRECTORY]</code> flag or add the following entry to your configuration file.</p>
         <pre>
 <code class="language-json">{
   "defaults": {
@@ -146,7 +146,7 @@
     <div class="row py-3 anchor" id="configuration">
       <div class="col-md-9 col-12 mx-auto">
         <h4 class="text-center">Configuration</h4>
-        <p>While most of brom's features can be triggered with flags, you can simplify the process by providing a brom.config.json file in your project's directory. brom needs, at the minimum, to know what local port to proxy to, and with many settings it also needs a path to your server. If you'd rather just type brom, provide the following properties in the config file.</p>
+        <p>While most of brom's features can be triggered with flags, you can simplify the process by providing a brom.config.json file in your project's directory. brom needs, at minimum, to know what local port to proxy to, and with many settings it also needs a path to your server. If you'd rather just type brom, provide the following properties in the config file.</p>
         <pre>
 <code class="language-json">{
   "server": "demo/server.js",
@@ -167,12 +167,16 @@
         <p>brom uses two lightweight servers to operate (a proxy for inspecting transactions, and a server for aggregating results from multiple sources). These operate on ports 9999 and 7913 respectively, but you can move them where you like.</p>
         <pre>
 <code class="language-json">{
+  "server": "demo/server.js",
+  "port": 3000,
   "proxy-port": 3001,
   "results-port": 3002
 }</code></pre>
         <p>Some rules may not be relevant to your application. To turn these off, create an <code class="language-json">"ignore-rules"</code> key in your configuration and list the IDs of the rules you'd like to turn off.</p>
         <pre>
 <code class="language-json">{
+  "server": "demo/server.js",
+  "port": 3000,
   "ignore-rules": [
     "no-x-powered-by"
   ]
@@ -195,7 +199,7 @@
     <div class="row py-3 anchor" id="api">
       <div class="col-md-9 col-12 mx-auto">
         <h4 class="text-center">API</h4>
-        <p>While brom is primarily designed as an auditing tool, it can also integrate into your application as an API. brom contains a series of header parsers written to spec, and you can access them by requiring brom into your code.</p>
+        <p>While brom is primarily designed as an auditing tool, it can also integrate into your application as an API. brom contains a series of header parsers written to spec, and you can access them by requiring brom into your code. </p>
         <pre>
 <code class="language-javascript">const parse = require('brom');
 
@@ -238,7 +242,7 @@ parse({
 //     'Content-Length': '7913'
 //   }
 // }</code></pre>
-      <p>When called on it's own, it will parse an entire header set, but you can parse individual headers by adding a method to the function call.</p>
+      <p>When called on its own, it will parse an entire header set, but you can also parse individual headers:</p>
               <pre>
 <code class="language-javascript">brom.csp("default-src 'self'; img-src *; script-src userscripts.example.com");
 
@@ -247,6 +251,7 @@ parse({
 //   'img-src': ['*'],
 //   'script-src': ['userscripts.example.com']
 // }</code></pre>
+<p>Full documentation of all parsers can be found in brom's npm readme.</p>
       </div>
     </div>
   </main>
